@@ -1,0 +1,66 @@
+{
+  "1771047805.920348": {
+    "name": "TestSession",
+    "mode": "game",
+    "difficulty": "normal",
+    "players": [],
+    "events": [
+      {
+        "type": "ai_event",
+        "room": "Hallway",
+        "text": "Shadows flicker in Hallway.",
+        "volume": 2,
+        "visibility": "ai_event",
+        "timestamp": 1771047728.5572155
+      },
+      {
+        "type": "ai_event",
+        "room": "Attic",
+        "text": "A mysterious sound echoes through Attic...",
+        "volume": 2,
+        "visibility": "ai_event",
+        "timestamp": 1771047728.5572417
+      },
+      {
+        "type": "chat",
+        "player": "alice",
+        "message": "Is anyone here?",
+        "room": "Library",
+        "timestamp": 1771047735.673117
+      },
+      {
+        "type": "chat",
+        "player": "bob",
+        "message": "Hello from the Kitchen!",
+        "room": "Library",
+        "timestamp": 1771047737.673574
+      },
+      {
+        "type": "player_moved",
+        "player": "alice",
+        "room": "Hallway",
+        "timestamp": 1771047739.6773496
+      },
+      {
+        "type": "player_moved",
+        "player": "bob",
+        "room": "Hallway",
+        "timestamp": 1771047741.688948
+      },
+      {
+        "type": "chat",
+        "player": "alice",
+        "message": "Oh, I found you!",
+        "room": "Hallway",
+        "timestamp": 1771047742.6911771
+      },
+      {
+        "type": "mysterious_sound",
+        "room": "Hallway",
+        "text": "A ghost appears!",
+        "timestamp": 1771047803.8817174
+      }
+    ],
+    "saved_at": "2026-02-13T23:43:25.920407"
+  }
+}

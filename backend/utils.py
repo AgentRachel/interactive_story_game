@@ -93,3 +93,80 @@ def export_event_log(events, format="json"):
         return "\n".join([f"{e.get('type')}: {e.get('player', 'System')} - {e.get('text', '')}" for e in events])
     return str(events)
 
+def generate_story_pdf(session_data):
+    """Generate a PDF from a game session using weasyprint"""
+    try:
+        from weasyprint import HTML, CSS
+        from io import BytesIO
+        import json
+        
+        # Create HTML content
+        html_content = f"""
+        <html>
+        <head>
+            <style>
+                body {{ font-family: Arial, sans-serif; margin: 20px; }}
+                h1 {{ color: #333; border-bottom: 2px solid #333; }}
+                h2 {{ color: #666; margin-top: 20px; }}
+                .player {{ background: #f0f0f0; padding: 10px; margin: 5px 0; border-radius: 3px; }}
+                .event {{ background: #e8f4f8; padding: 8px; margin: 3px 0; border-left: 3px solid #0099cc; }}
+                .summary {{ color: #666; font-size: 12px; margin: 10px 0; }}
+            </style>
+        </head>
+        <body>
+            <h1>Interactive Story Game Session</h1>
+            <div class="summary">
+                <p><strong>Mode:</strong> {session_data.get('mode', 'unknown')}</p>
+                <p><strong>Difficulty:</strong> {session_data.get('difficulty', 'normal')}</p>
+                <p><strong>Total Events:</strong> {len(session_data.get('events', []))}</p>
+            </div>
+            
+            <h2>Players</h2>
+            {' '.join([f'<div class="player"><strong>{p.get("name")}</strong> - Role: {p.get("role", "None")} - Room: {p.get("current_room", "Unknown")}</div>' for p in session_data.get('players', [])])}
+            
+            <h2>Event Log</h2>
+            {' '.join([f'<div class="event"><strong>{e.get("type")}</strong>: {e.get("player", "System")} - {e.get("message") or e.get("text") or "event"}</div>' for e in session_data.get('events', [])])}
+            
+        </body>
+        </html>
+        """
+        
+        # Generate PDF
+        pdf_bytes = HTML(string=html_content).write_pdf()
+        return pdf_bytes
+    
+    except ImportError:
+        raise ImportError("weasyprint is required for PDF export. Install with: pip install weasyprint")
+    except Exception as e:
+        raise Exception(f"PDF generation error: {str(e)}")
+
+def generate_narrative_event(player_name, context, difficulty="normal"):
+    """Generate a narrative event for story mode"""
+    narratives = {
+        "easy": [
+            f"You hear {player_name} moving around nearby.",
+            f"{player_name} appears in the room.",
+            f"A gentle breeze carries a whisper from {player_name}.",
+            "You sense something is shifting in the environment.",
+            "Time seems to move slowly here..."
+        ],
+        "normal": [
+            f"{player_name} suddenly looks your way.",
+            f"The atmosphere changes when {player_name} arrives.",
+            f"You hear {player_name} whispering something cryptic.",
+            "A mysterious figure emerges from the shadows.",
+            "The room feels electric with tension."
+        ],
+        "hard": [
+            f"{player_name} confronts you directly with intensity.",
+            f"An unexpected revelation about {player_name} strikes you.",
+            f"{player_name}'s actions have serious consequences.",
+            "A shocking twist disrupts everything you thought.",
+            "The stakes have never felt higher..."
+        ]
+    }
+    
+    import random
+    events_for_difficulty = narratives.get(difficulty, narratives["normal"])
+    return random.choice(events_for_difficulty)
+

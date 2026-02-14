@@ -1,13 +1,13 @@
-fastapi==0.104.1
-uvicorn==0.24.0
-websockets==12.0
-sqlalchemy==2.0.23
-jinja2==3.1.2
-pydantic==2.5.0
-python-multipart==0.0.6
+fastapi>=0.100.0
+uvicorn>=0.24.0
+websockets>=12.0
+sqlalchemy>=2.0.0
+jinja2>=3.1.0
+pydantic>=2.0.0
+python-multipart>=0.0.6
 
 # Optional dependencies
-# weasyprint==59.3  # PDF export
-# openai==1.3.7  # AI narrative generation
-# diffusers==0.21.4  # Image generation
-# torch==2.1.0  # For diffusers
+# weasyprint  # PDF export
+# openai  # AI narrative generation
+# diffusers  # Image generation
+# torch  # For diffusers

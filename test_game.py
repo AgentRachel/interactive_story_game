@@ -11,6 +11,11 @@ import asyncio
 import json
 import websockets
 from datetime import datetime
+import sys
+import io
+
+# Fix encoding issue on Windows
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
 class TestPlayer:
     def __init__(self, name, player_id):
@@ -94,7 +99,7 @@ async def run_test():
         TestPlayer("Charlie", "charlie"),
     ]
     
-    uri = "ws://localhost:8000/ws"
+    uri = "ws://localhost:8001/ws"
     
     # Connect all players
     print("\n[PHASE 1] Connecting players...\n")
@@ -102,7 +107,7 @@ async def run_test():
         success = await player.connect(f"{uri}/{player.player_id}")
         if not success:
             print("\n❌ Could not connect to server. Make sure backend is running:")
-            print("   uvicorn backend.main:app --reload")
+            print("   uvicorn backend.main:app --reload --port 8001")
             return
     
     # Start listening tasks

@@ -5,7 +5,71 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
+    <!-- Welcome Screen -->
+    <div id="welcome-screen" class="welcome-container">
+        <div class="welcome-card">
+            <h1>🎮 Interactive Story Game</h1>
+            <p class="welcome-subtitle">Choose your adventure</p>
+            
+            <div class="player-name-section">
+                <input type="text" id="player-name-input" placeholder="Enter your name..." onkeypress="handleNameKeypress(event)">
+                <label for="difficulty-select">Difficulty:</label>
+                <select id="difficulty-select">
+                    <option value="easy">Easy</option>
+                    <option value="normal" selected>Normal</option>
+                    <option value="hard">Hard</option>
+                </select>
+            </div>
+            
+            <div class="mode-buttons">
+                <button class="mode-btn story-btn" onclick="startStory()">
+                    <div class="btn-icon">📖</div>
+                    <div class="btn-text">Story Mode</div>
+                    <div class="btn-desc">Single player adventure</div>
+                </button>
+                
+                <button class="mode-btn game-btn" onclick="startGame()">
+                    <div class="btn-icon">👥</div>
+                    <div class="btn-text">Game Mode</div>
+                    <div class="btn-desc">Multiplayer mystery</div>
+                </button>
+            </div>
+
+            <!-- Story Menu (hidden until Story Mode chosen) -->
+            <div id="story-menu" class="story-menu hidden">
+                <h3>Story Menu</h3>
+                <div class="story-actions">
+                    <button onclick="showNewStoryForm()">New Story</button>
+                    <button onclick="showContinueStories()">Continue Story</button>
+                    <button onclick="manageStories()">Manage Stories/Worlds</button>
+                    <button onclick="enterRoomCode()">Enter Room Code</button>
+                    <button onclick="backToWelcome()">Back</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Story Screen (single-player immersive) -->
+    <div id="story-screen" class="story-screen hidden">
+        <div class="story-card">
+            <div class="story-header">
+                <div class="story-icon">📖</div>
+                <h2 id="story-title">Your Story</h2>
+                <div class="story-actions-inline">
+                    <button onclick="saveStory()">Save</button>
+                    <button onclick="exportPDF()">Export PDF</button>
+                </div>
+            </div>
+            <div id="narrative-text" class="narrative-panel">The story will appear here...</div>
+            <div id="choice-buttons" class="choice-buttons"></div>
+            <div class="story-controls">
+                <button onclick="endStory()">Exit Story</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Screen (hidden until player joins) -->
+    <div id="game-screen" class="container hidden">
         <header>
             <h1>🎮 Interactive Story Game</h1>
             <div id="status" class="status disconnected">Connecting...</div>
@@ -16,6 +80,7 @@
                 <div id="player-info" class="panel">
                     <h2>Player Info</h2>
                     <p>Name: <strong id="player-name">-</strong></p>
+                    <p>Player #: <strong id="player-number">-</strong></p>
                     <p>Room: <strong id="player-room">-</strong></p>
                     <p>Role: <strong id="player-role">-</strong></p>
                 </div>

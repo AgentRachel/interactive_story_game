@@ -51,16 +51,20 @@ class EventEngine:
             visibility = event.get("visibility", "global")
             event_room = event.get("room", "")
             
-            if visibility == "global":
-                filtered.append(event)
-            elif visibility == "room" and event_room == player_room:
-                filtered.append(event)
-            elif visibility == "whisper" and event.get("player") == player.name:
-                filtered.append(event)
-            elif event.get("type") == "ai_event":
-                # AI events visible based on sound propagation (awareness)
-                if event_room == player_room or player.can_hear_event(event_room, event.get("volume", 1)):
+            try:
+                if visibility == "global":
                     filtered.append(event)
+                elif visibility == "room" and event_room == player_room:
+                    filtered.append(event)
+                elif visibility == "whisper" and event.get("player") == player.name:
+                    filtered.append(event)
+                elif event.get("type") == "ai_event":
+                    # AI events visible based on sound propagation (awareness)
+                    if event_room == player_room or player.can_hear_event(event_room, event.get("volume", 1)):
+                        filtered.append(event)
+            except Exception as e:
+                print(f"Error filtering event for {player.name}: {e}")
+                continue
         
         return filtered
 
