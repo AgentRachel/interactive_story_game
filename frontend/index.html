@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Interactive Story Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎮 Interactive Story Game</h1>
+            <div id="status" class="status disconnected">Connecting...</div>
+        </header>
+        
+        <main>
+            <div class="left-panel">
+                <div id="player-info" class="panel">
+                    <h2>Player Info</h2>
+                    <p>Name: <strong id="player-name">-</strong></p>
+                    <p>Room: <strong id="player-room">-</strong></p>
+                    <p>Role: <strong id="player-role">-</strong></p>
+                </div>
+                
+                <div id="rooms" class="panel">
+                    <h2>Connected Rooms</h2>
+                    <div id="room-buttons"></div>
+                </div>
+            </div>
+            
+            <div class="center-panel">
+                <div id="map" class="panel">
+                    <h2>Map</h2>
+                    <div id="map-display" class="map"></div>
+                </div>
+                
+                <div id="actions" class="panel">
+                    <h2>Actions</h2>
+                    <div class="action-buttons">
+                        <button onclick="whisper()">Whisper</button>
+                        <button onclick="investigate()">Investigate</button>
+                        <button onclick="hide()">Hide</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="right-panel">
+                <div id="events" class="panel">
+                    <h2>Events Log</h2>
+                    <div id="events-container" class="events-log"></div>
+                </div>
+                
+                <div id="chat" class="panel">
+                    <h2>Chat</h2>
+                    <div id="chat-messages" class="chat-messages"></div>
+                    <input type="text" id="chat-input" placeholder="Send message..." onkeypress="handleChatKeypress(event)">
+                    <button onclick="sendChat()">Send</button>
+                </div>
+            </div>
+        </main>
+        
+        <footer>
+            <p>Connected Players: <strong id="player-count">0</strong></p>
+        </footer>
+    </div>
+    
+    <script src="app.js"></script>
+</body>
+</html>
